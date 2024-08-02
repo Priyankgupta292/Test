@@ -11,10 +11,10 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'TestWebPartStrings';
 import Test from './components/Test';
 import { ITestProps } from './components/ITestProps';
-
+ 
 export interface ITestWebPartProps {
   description: string;
-}
+} 
 
 export default class TestWebPart extends BaseClientSideWebPart<ITestWebPartProps> {
 
@@ -29,17 +29,18 @@ export default class TestWebPart extends BaseClientSideWebPart<ITestWebPartProps
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        userDisplayName: this.context.pageContext.user.displayName,
+        context:this.context
       }
     );
-
+     
     ReactDom.render(element, this.domElement);
   }
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
-    });
+   });   
   }
 
 
@@ -66,7 +67,7 @@ export default class TestWebPart extends BaseClientSideWebPart<ITestWebPartProps
 
           return environmentMessage;
         });
-    }
+    }  
 
     return Promise.resolve(this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentSharePoint : strings.AppSharePointEnvironment);
   }
